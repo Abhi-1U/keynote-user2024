@@ -6,8 +6,8 @@ format:
   letterbox-revealjs:
     theme: [default]
     css: [theme.css]
-    progress: false
-    menu: false
+    progress: true
+    menu: true
     width: 1280
     height: 720
 filters:
@@ -42,7 +42,7 @@ Your favorite R Journal articles, Now in RMarkdown (web format)
 ## {}
 
 ::: columns
-::: {.column width="35%"}
+::: {.column width="30%"}
 
 ### Abhishek Ulayil
 
@@ -55,7 +55,7 @@ Your favorite R Journal articles, Now in RMarkdown (web format)
 
 :::
 
-::: {.column width="65%"}
+::: {.column width="70%"}
 
 ### Namaste 🙏 , I am a ..
 
@@ -74,7 +74,7 @@ Your favorite R Journal articles, Now in RMarkdown (web format)
 
 ::: columns
 ::: {.column width="30%"}
-
+![](resources/yellow_image.png){.image-left}
 :::
 
 ::: {.column width="70%"}
@@ -91,11 +91,12 @@ Your favorite R Journal articles, Now in RMarkdown (web format)
 
 
 
+
 ## {}
 
 ::: columns
 
-::: {.column width="60%"}
+::: {.column width="70%"}
 
 ### What makes this project special
 
@@ -106,12 +107,16 @@ Your favorite R Journal articles, Now in RMarkdown (web format)
 - [Conversions purely based on the LaTeX source code.]{.fragment .fade-in}
 
 :::
+::: {.column width="30%"}
+![](resources/sky_blue_image.png){.image-right}
+:::
+
 :::
 
 ## {}
 ::: columns
 
-::: {.column width="60%"}
+::: {.column width="70%"}
 
 ### How did we achieve this
 
@@ -129,6 +134,9 @@ Your favorite R Journal articles, Now in RMarkdown (web format)
 
 :::
 
+::: {.column width="30%"}
+![](resources/fuchsia_image.png){.image-right}
+:::
 :::
 <!-- To Be added--->
 ## {}
@@ -146,7 +154,10 @@ Your favorite R Journal articles, Now in RMarkdown (web format)
 
 ::: columns
 
-::: {.column width="60%"}
+::: {.column width="30%"}
+![](resources/mediumseagreen_image.png){.image-left}
+:::
+::: {.column width="70%"}
 
 ### Feedback loop : Improving the conversions
 
@@ -162,7 +173,7 @@ Your favorite R Journal articles, Now in RMarkdown (web format)
 ## {}
 
 ::: columns
-::: {.column width="60%"}
+::: {.column width="100%"}
 ### Insights : Article sizes across articles 
 
 #### Article Sizes
@@ -170,7 +181,8 @@ Your favorite R Journal articles, Now in RMarkdown (web format)
 ```{r,include=FALSE}
 # for multiple articles in RJ folder structure
 #base dir 
-article_dir <- "/home/abhi/deploy_articles/paper_conversion/converted_articles/_articles"
+#article_dir <- "/home/abhi/deploy_articles/paper_conversion/converted_articles/_articles"
+article_dir <- "/home/abhi/Documents/rjournal.github.io/_articles/"
 # list of journal number directories
 journal_dirs <- list.dirs(article_dir,recursive = FALSE)
 #rmarkdown::yaml_front_matter()
@@ -191,7 +203,7 @@ quantile(file_sizes,na.rm = TRUE)
 ## {}
 
 ::: columns
-::: {.column width="60%"}
+::: {.column width="100%"}
 ### Insights : Growth of RJournal articles year on year
 
 <!-- Not included as the analytics will not run elsewhere-->
@@ -215,7 +227,9 @@ for (dir in journal_dirs) {
 library(dplyr)
 year <- unlist(year)
 year_wise_data <- data.frame(rle(year)$values,rle(year)$lengths)
-plot(year_wise_data, type = 'o' ,fill = TRUE, xlab = "Year", ylab = "No. of articles converted")
+filtered_data = year_wise_data |>
+  filter(rle.year..values < 2022)
+plot(filtered_data, type = 'o' ,fill = TRUE, xlab = "Year", ylab = "No. of articles converted")
 ```
 :::
 :::
@@ -267,7 +281,7 @@ plot(year_wise_data, type = 'o' ,fill = TRUE, xlab = "Year", ylab = "No. of arti
 ## {}
 
 ::: columns
-::: {.column width="60%"}
+::: {.column width="70%"}
 ### Expected Impact of converting the legacy articles to Rmarkdown
 
 - Accessibility improvements
@@ -277,12 +291,18 @@ plot(year_wise_data, type = 'o' ,fill = TRUE, xlab = "Year", ylab = "No. of arti
 - Motivation for authors to bring their LaTeX papers to Rmarkdown/web format
 
 :::
+::: {.column width="30%"}
+![](resources/peru_image.png){.image-right}
+:::
 :::
 
 ## {}
 
 ::: columns
-::: {.column width="60%"}
+::: {.column width="30%"}
+![](resources/fuchsia_image.png){.image-left}
+:::
+::: {.column width="70%"}
 ### Upcoming : Support for Sweave articles
 
 - Use of custom Pandoc readers in Lua.
