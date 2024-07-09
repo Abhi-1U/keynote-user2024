@@ -1,0 +1,325 @@
+---
+from: markdown+emoji
+execute:
+  cache: true
+format:
+  letterbox-revealjs:
+    theme: [default]
+    css: [theme.css]
+    progress: false
+    menu: false
+    width: 1280
+    height: 720
+filters:
+  - custom-callouts
+callout-appearance: simple
+editor_options: 
+  chunk_output_type: console
+---
+
+
+## {}
+
+::: columns
+::: {.column width="100%"}
+
+::: {.title data-id="title"}
+Your favorite R Journal articles, Now in RMarkdown (web format)
+:::
+
+::: {.dateplace}
+11th July 2024 @ UseR! 2024
+:::
+
+##### Abhishek Ulayil, Institute of Actuaries of India
+
+
+:::
+:::
+
+![](resources/UseRbanner.png){}
+
+## {}
+
+::: columns
+::: {.column width="35%"}
+
+### Abhishek Ulayil
+
+#### Freelance Software Developer + Institute of Actuaries of India
+
+[![](resources/github.svg){.icon} @Abhi-1U](https://github.com/Abhi-1U)
+
+[![](resources/linkedin.svg){.icon} @abhishek-ulayil](https://www.linkedin.com/in/abhishek-ulayil-666b647b/)
+
+
+:::
+
+::: {.column width="65%"}
+
+### Namaste 🙏 , I am a ..
+
+- :mortar_board: Student Actuary at Institute of Actuaries of India 
+- :chart_with_upwards_trend: 2X Google summer of code contributor to R Journal and a mentor this year.
+- :bar_chart: Freelance software developer
+- :package: R package developer (**texor**, **rebib**)
+- :package: Python package developer (**pyrix**, ..)
+
+:::
+:::
+
+
+
+## {}
+
+::: columns
+::: {.column width="30%"}
+
+:::
+
+::: {.column width="70%"}
+
+### Why Convert the legacy articles ?
+
+- [Better accessibility for visually challenged]{.fragment .fade-in}
+- [Responsive articles across all devices]{.fragment .fade-in}
+- [Easier translations]{.fragment .fade-in}
+- [Maintain parity with newer articles written in Rmarkdown with support for both web and PDF formats.]{.fragment .fade-in}
+
+:::
+:::
+
+
+
+## {}
+
+::: columns
+
+::: {.column width="60%"}
+
+### What makes this project special
+
+- [Compute efficient conversion process.]{.fragment .fade-in}
+
+- [Reduces manual intervention and speeds up conversion process.]{.fragment .fade-in}
+
+- [Conversions purely based on the LaTeX source code.]{.fragment .fade-in}
+
+:::
+:::
+
+## {}
+::: columns
+
+::: {.column width="60%"}
+
+### How did we achieve this
+
+- [[`Pandoc`](https://pandoc.org/) : The hero of the project]{.fragment .fade-in}
+
+- [[`Lua Filters`](https://pandoc.org/lua-filters.html) : Fixing references, managing markups and numbering]{.fragment .fade-in}
+
+- [[`Rebib`](https://cran.r-project.org/package=rebib) : Handled the bibliographies]{.fragment .fade-in}
+
+- [ [`rj`](https://github.com/mitchelloharawild/rj) : Extracting and placing the metadata in the yaml]{.fragment .fade-in}
+
+- [[`pdftools`](https://cran.r-project.org/package=pdftools) : Converting PDF fragments to PNG]{.fragment .fade-in}
+
+- [[`rjtools`](https://cran.r-project.org/package=rjtools) : The R Journal article output format ]{.fragment .fade-in}
+
+:::
+
+:::
+<!-- To Be added--->
+## {}
+
+::: columns
+::: {.column width="60%"}
+### Show some code chunks 
+
+:::
+:::
+
+<!-- --->
+
+## {}
+
+::: columns
+
+::: {.column width="60%"}
+
+### Feedback loop : Improving the conversions
+
+- Taking the PDF as the reference document, and trying to match the format.
+
+- Review of each and every aspect of the conversion by mentors and Jonathan Godfrey for accessibility improvements and feedback.
+
+- Possible inclusion of community members in the future to correct any mistakes in the articles.
+
+::: 
+:::
+
+## {}
+
+::: columns
+::: {.column width="60%"}
+### Insights : Article sizes across articles 
+
+#### Article Sizes
+<!-- Not included as the analytics will not run elsewhere-->
+```{r,include=FALSE}
+# for multiple articles in RJ folder structure
+#base dir 
+article_dir <- "/home/abhi/deploy_articles/paper_conversion/converted_articles/_articles"
+# list of journal number directories
+journal_dirs <- list.dirs(article_dir,recursive = FALSE)
+#rmarkdown::yaml_front_matter()
+file_sizes <- list()
+for (dir in journal_dirs) {
+    file_sizes[length(file_sizes)+1] <- file.size(paste(dir,"/",basename(dir),".html",sep=""))/1000 # in kbs
+}
+file_sizes <- unlist(file_sizes)
+print("Mean file size in KB")
+mean(file_sizes, na.rm = TRUE)
+print("Quantile variation in file sizes in KB")
+quantile(file_sizes,na.rm = TRUE)
+```
+:::
+:::
+
+
+## {}
+
+::: columns
+::: {.column width="60%"}
+### Insights : Growth of RJournal articles year on year
+
+<!-- Not included as the analytics will not run elsewhere-->
+```{r,include=FALSE}
+# for multiple articles in RJ folder structure
+#base dir 
+article_dir <- "/home/abhi/deploy_articles/paper_conversion/converted_articles/_articles"
+# list of journal number directories
+journal_dirs <- list.dirs(article_dir,recursive = FALSE)
+#rmarkdown::yaml_front_matter()
+year <- list()
+previous_year <- 2008
+for (dir in journal_dirs) {
+     if (is.na(file.size(paste(dir,"/",basename(dir),".html",sep="")))) {
+       # Do Nothing
+     }
+     else{
+       year[length(year) + 1] <- unlist(stringr::str_split(basename(dir),pattern = '-'))[2]
+     }
+}
+library(dplyr)
+year <- unlist(year)
+year_wise_data <- data.frame(rle(year)$values,rle(year)$lengths)
+plot(year_wise_data, type = 'o' ,fill = TRUE, xlab = "Year", ylab = "No. of articles converted")
+```
+:::
+:::
+
+
+## {}
+
+::: columns
+### Insights : Articles which I found interesting
+
+- Articles with animations [RJ-2011-19, RJ-2015-34]
+
+- SparkTable converted beautifully [RJ-2015-003]
+
+- Creative way to represent color bars [RJ-2016-005]
+
+:::
+
+## {}
+
+### Demo : View any LaTeX R Journal article you like
+
+```{=html}
+<iframe width="1600" height="900" src="https://rjournal.github.io/" title="R Journal"></iframe>
+```
+
+
+## {}
+
+::: columns
+### Demo : Showing the conversion process on a supplementary articles
+:::
+
+## {}
+
+::: columns
+::: {.column width="60%"}
+### Global Collaboration : Natural diversity and inclusion in this project
+
+- Mentors are from UK, Australia, France
+
+- Project Funding is received from Google, USA
+
+- I hail from India and my mentee is from mainland China
+
+:::
+:::
+
+## {}
+
+::: columns
+::: {.column width="60%"}
+### Expected Impact of converting the legacy articles to Rmarkdown
+
+- Accessibility improvements
+
+- Easy to access on any device
+
+- Motivation for authors to bring their LaTeX papers to Rmarkdown/web format
+
+:::
+:::
+
+## {}
+
+::: columns
+::: {.column width="60%"}
+### Upcoming : Support for Sweave articles
+
+- Use of custom Pandoc readers in Lua.
+
+- Retaining executable code chunks and inline code chunks
+
+- Best efforts to retain meta-data in the yaml
+
+- More features to come like support for algorithms using `pseudocodejs` and auto-numbering equations just like in LaTeX.
+:::
+:::
+
+
+## {}
+
+::: columns
+
+### Demo : A brief demonstration of showing the conversion of Bradley Terry2 vignette
+:::
+
+<!-- To be added -->
+## {}
+
+::: columns
+### Best practices for better accessibility and easier conversions
+
+:::
+
+## {}
+
+::: columns
+::: {.column width="60%"}
+### Wrapping Up : Your Favourite articles now in Rmarkdown 
+
+
+:::
+:::
+<!-- -->
+
+
