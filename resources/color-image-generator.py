@@ -6,8 +6,8 @@ height = 1080
 
 # Create a plain yellow image
 
-peru_image = Image.new("RGB", (width, height), "peru")
-peru_image.save("/home/abhi/Documents/UseR-24-slides/resources/peru_image.png")
+powderblue_image = Image.new("RGB", (width, height), "powderblue")
+powderblue_image.save("/home/abhi/Documents/UseR-24-slides/resources/powderblue_image.png")
 
 # Display image size to confirm
-peru_image.size
+powderblue_image.size

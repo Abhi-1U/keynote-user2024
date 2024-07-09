@@ -6,6 +6,8 @@ format:
   letterbox-revealjs:
     theme: [default]
     css: [theme.css]
+    slide-number: true
+    show-slide-number: all
     progress: true
     menu: true
     width: 1280
@@ -81,10 +83,10 @@ Your favorite R Journal articles, Now in RMarkdown (web format)
 
 ### Why Convert the legacy articles ?
 
-- [Better accessibility for visually challenged]{.fragment .fade-in}
-- [Responsive articles across all devices]{.fragment .fade-in}
-- [Easier translations]{.fragment .fade-in}
-- [Maintain parity with newer articles written in Rmarkdown with support for both web and PDF formats.]{.fragment .fade-in}
+- Better accessibility for visually challenged
+- Responsive articles across all devices
+- Easier translations
+- Maintain parity with newer articles written in Rmarkdown with support for both web and PDF formats.
 
 :::
 :::
@@ -100,11 +102,11 @@ Your favorite R Journal articles, Now in RMarkdown (web format)
 
 ### What makes this project special
 
-- [Compute efficient conversion process.]{.fragment .fade-in}
+- Compute efficient conversion process.
 
-- [Reduces manual intervention and speeds up conversion process.]{.fragment .fade-in}
+- Reduces manual intervention and speeds up conversion process.
 
-- [Conversions purely based on the LaTeX source code.]{.fragment .fade-in}
+- Conversions purely based on the LaTeX source code.
 
 :::
 ::: {.column width="30%"}
@@ -120,17 +122,17 @@ Your favorite R Journal articles, Now in RMarkdown (web format)
 
 ### How did we achieve this
 
-- [[`Pandoc`](https://pandoc.org/) : The hero of the project]{.fragment .fade-in}
+- [`Pandoc`](https://pandoc.org/) : The hero of the project
 
-- [[`Lua Filters`](https://pandoc.org/lua-filters.html) : Fixing references, managing markups and numbering]{.fragment .fade-in}
+- [`Lua Filters`](https://pandoc.org/lua-filters.html) : Fixing references, managing markups and numbering
 
-- [[`Rebib`](https://cran.r-project.org/package=rebib) : Handled the bibliographies]{.fragment .fade-in}
+- [`Rebib`](https://cran.r-project.org/package=rebib) : Handled the bibliographies
 
-- [ [`rj`](https://github.com/mitchelloharawild/rj) : Extracting and placing the metadata in the yaml]{.fragment .fade-in}
+-  [`rj`](https://github.com/mitchelloharawild/rj) : Extracting and placing the metadata in the yaml
 
-- [[`pdftools`](https://cran.r-project.org/package=pdftools) : Converting PDF fragments to PNG]{.fragment .fade-in}
+- [`pdftools`](https://cran.r-project.org/package=pdftools) : Converting PDF fragments to PNG
 
-- [[`rjtools`](https://cran.r-project.org/package=rjtools) : The R Journal article output format ]{.fragment .fade-in}
+- [`rjtools`](https://cran.r-project.org/package=rjtools) : The R Journal article output format 
 
 :::
 
@@ -269,12 +271,12 @@ plot(filtered_data, type = 'o' ,fill = TRUE, xlab = "Year", ylab = "No. of artic
 ::: {.column width="60%"}
 ### Global Collaboration : Natural diversity and inclusion in this project
 
-- Mentors are from UK, Australia, France
+<!--Add emojis --> Mentors are from UK, Australia, France
 
-- Project Funding is received from Google, USA
+ Project Funding is received from Google, USA
 
-- I hail from India and my mentee is from mainland China
-
+ I hail from India and my mentee is from mainland China
+<!-- use chatgpt to produce a map with highlights -->
 :::
 :::
 
@@ -300,18 +302,18 @@ plot(filtered_data, type = 'o' ,fill = TRUE, xlab = "Year", ylab = "No. of artic
 
 ::: columns
 ::: {.column width="30%"}
-![](resources/fuchsia_image.png){.image-left}
+![](resources/powderblue_image.png){.image-left}
 :::
 ::: {.column width="70%"}
 ### Upcoming : Support for Sweave articles
 
-- Use of custom Pandoc readers in Lua.
+Use of custom Pandoc readers in Lua.
 
-- Retaining executable code chunks and inline code chunks
+Retaining executable code chunks and inline code chunks
 
-- Best efforts to retain meta-data in the yaml
+Best efforts to retain meta-data in the yaml
 
-- More features to come like support for algorithms using `pseudocodejs` and auto-numbering equations just like in LaTeX.
+More features to come like support for algorithms using `pseudocodejs` and auto-numbering equations just like in LaTeX.
 :::
 :::
 
