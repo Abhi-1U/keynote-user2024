@@ -6,8 +6,8 @@ height = 1080
 
 # Create a plain yellow image
 
-powderblue_image = Image.new("RGB", (width, height), "powderblue")
-powderblue_image.save("/home/abhi/Documents/UseR-24-slides/resources/powderblue_image.png")
+slate_image = Image.new("RGB", (width, height), "darkviolet")
+slate_image.save("/home/abhi/Documents/UseR-24-slides/resources/darkviolet_image.png")
 
 # Display image size to confirm
-powderblue_image.size
+slate_image.size

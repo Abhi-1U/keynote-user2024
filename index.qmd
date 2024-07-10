@@ -6,6 +6,7 @@ format:
   letterbox-revealjs:
     theme: [default]
     css: [theme.css]
+    footer: "[https://abhi-1u.github.io/keynote-user2024/](https://abhi-1u.github.io/keynote-user2024/)"
     slide-number: true
     show-slide-number: all
     progress: true
@@ -57,7 +58,7 @@ Your favorite R Journal articles, Now in RMarkdown (web format)
 
 :::
 
-::: {.column width="70%"}
+::: {.column width="70%" .fragment .fade-in}
 
 ### Namaste 🙏 , I am a ..
 
@@ -75,19 +76,20 @@ Your favorite R Journal articles, Now in RMarkdown (web format)
 ## {}
 
 ::: columns
-::: {.column width="30%"}
-![](resources/yellow_image.png){.image-left}
-:::
 
-::: {.column width="70%"}
 
-### Why Convert the legacy articles ?
+::: {.column width="70%" .fragment .fade-in}
 
-- Better accessibility for visually challenged
-- Responsive articles across all devices
-- Easier translations
+### Why convert the legacy articles ?
+
+- Better accessibility for visually challenged.
+- Responsive articles across all devices.
+- Easier translations.
 - Maintain parity with newer articles written in Rmarkdown with support for both web and PDF formats.
 
+:::
+::: {.column width="30%"}
+![](resources/yellow_image.png){.image-right}
 :::
 :::
 
@@ -98,7 +100,7 @@ Your favorite R Journal articles, Now in RMarkdown (web format)
 
 ::: columns
 
-::: {.column width="70%"}
+::: {.column width="70%" .fragment .fade-in}
 
 ### What makes this project special
 
@@ -108,6 +110,8 @@ Your favorite R Journal articles, Now in RMarkdown (web format)
 
 - Conversions purely based on the LaTeX source code.
 
+- The quality of conversions is good.
+
 :::
 ::: {.column width="30%"}
 ![](resources/sky_blue_image.png){.image-right}
@@ -116,15 +120,14 @@ Your favorite R Journal articles, Now in RMarkdown (web format)
 :::
 
 ## {}
-::: columns
 
-::: {.column width="70%"}
+::: {.column width="70%" .fragment .fade-in}
 
 ### How did we achieve this
 
 - [`Pandoc`](https://pandoc.org/) : The hero of the project
 
-- [`Lua Filters`](https://pandoc.org/lua-filters.html) : Fixing references, managing markups and numbering
+- [`Lua Filters`](https://pandoc.org/lua-filters.html) : Fixing references, managing markups and numbering.
 
 - [`Rebib`](https://cran.r-project.org/package=rebib) : Handled the bibliographies
 
@@ -139,16 +142,47 @@ Your favorite R Journal articles, Now in RMarkdown (web format)
 ::: {.column width="30%"}
 ![](resources/fuchsia_image.png){.image-right}
 :::
-:::
+
+
 <!-- To Be added--->
 ## {}
 
+### Main idea
+
+::: fragment
+::: {.fragment .fade-in}
+
+```r
+Convert_To_Markdown<- function(input_file){
+  old_working_dir=getwd()
+  setwd(dirname(input_file))
+  md_file_name=paste(toString(tools::file_path_sans_ext(input_file)),".md",sep="")
+  rmarkdown::pandoc_convert(input_file, to= "markdown",output=md_file_name)
+  setwd(old_working_dir)
+}
+```
+:::
+:::
+
+## {}
+
 ::: columns
-::: {.column width="60%"}
-### Show some code chunks 
+
+### My first pandoc Lua filter 
+
+::: {.column width="100%" .fragment .fade-in}
+
+```lua
+function Div(el)
+    if el.classes[1] == 'thebibliography' then
+        return { }
+    end
+end
+```
 
 :::
 :::
+
 
 <!-- --->
 
@@ -156,10 +190,7 @@ Your favorite R Journal articles, Now in RMarkdown (web format)
 
 ::: columns
 
-::: {.column width="30%"}
-![](resources/mediumseagreen_image.png){.image-left}
-:::
-::: {.column width="70%"}
+::: {.column width="70%" .fragment .fade-in}
 
 ### Feedback loop : Improving the conversions
 
@@ -169,22 +200,26 @@ Your favorite R Journal articles, Now in RMarkdown (web format)
 
 - Possible inclusion of community members in the future to correct any mistakes in the articles.
 
-::: 
+:::
+
+::: {.column width="30%"}
+![](resources/mediumseagreen_image.png){.image-right}
+:::
 :::
 
 ## {}
 
-::: columns
-::: {.column width="100%"}
 ### Insights : Article sizes across articles 
 
-#### Article Sizes
+::: columns
+::: {.column width="70%" .fragment .fade-in}
+
 <!-- Not included as the analytics will not run elsewhere-->
 ```{r,include=FALSE}
 # for multiple articles in RJ folder structure
 #base dir 
-#article_dir <- "/home/abhi/deploy_articles/paper_conversion/converted_articles/_articles"
-article_dir <- "/home/abhi/Documents/rjournal.github.io/_articles/"
+article_dir <- "/home/abhi/deploy_articles/paper_conversion/converted_articles/_articles"
+#article_dir <- "/home/abhi/Documents/rjournal.github.io/_articles/"
 # list of journal number directories
 journal_dirs <- list.dirs(article_dir,recursive = FALSE)
 #rmarkdown::yaml_front_matter()
@@ -198,14 +233,28 @@ mean(file_sizes, na.rm = TRUE)
 print("Quantile variation in file sizes in KB")
 quantile(file_sizes,na.rm = TRUE)
 ```
+
+```
+[1] "Mean file size in KB"
+[1] 1557.364
+[1] "Quantile variation in file sizes in KB"
+        0%        25%        50%        75%       100% 
+  437.8060   721.1582  1066.1580  1764.5007 17276.2060 
+```
+
 :::
+
+::: {.column width="30%"}
+![](resources/darkviolet_image.png){.image-right}
+:::
+
 :::
 
 
 ## {}
 
 ::: columns
-::: {.column width="100%"}
+::: {.column width="100%" .fragment .fade-in}
 ### Insights : Growth of RJournal articles year on year
 
 <!-- Not included as the analytics will not run elsewhere-->
@@ -233,58 +282,107 @@ filtered_data = year_wise_data |>
   filter(rle.year..values < 2022)
 plot(filtered_data, type = 'o' ,fill = TRUE, xlab = "Year", ylab = "No. of articles converted")
 ```
+
+![](resources/Rplot.png)
 :::
 :::
 
 
 ## {}
 
-::: columns
+
+
 ### Insights : Articles which I found interesting
 
-- Articles with animations [RJ-2011-19, RJ-2015-34]
+<!-- Articles with animations [RJ-2011-19]-->
+<!-- Local Version -->
+```{=html}
+<!--<iframe width="1600" height="900" src="http://127.0.0.1:5500/articles/RJ-2011-019/" title="R Journal"></iframe>-->
+```
+<!-- Web Version -->
+```{=html}
+<iframe width="1600" height="900" src="https://rjournal.github.io/articles/RJ-2011-019/" title="R Journal"></iframe>
+```
+## {}
 
-- SparkTable converted beautifully [RJ-2015-003]
+<!-- Articles with animations  RJ-2015-34-->
 
-- Creative way to represent color bars [RJ-2016-005]
+```{=html}
+<!--<iframe width="1600" height="900" src="http://127.0.0.1:5500/articles/RJ-2015-034/" title="R Journal"></iframe>-->
+```
+<!-- Web Version -->
+```{=html}
+<iframe width="1600" height="900" src="https://rjournal.github.io/articles/RJ-2015-034/" title="R Journal"></iframe>
+```
+## {}
 
-:::
+<!-- SparkTable converted beautifully [RJ-2015-003]-->
+
+```{=html}
+<!--<iframe width="1600" height="900" src="http://127.0.0.1:5500/articles/RJ-2015-003/" title="R Journal"></iframe>-->
+```
+<!-- Web Version -->
+```{=html}
+<iframe width="1600" height="900" src="https://rjournal.github.io/articles/RJ-2015-003/" title="R Journal"></iframe>
+```
+## {}
+
+<!-- Creative way to represent color bars [RJ-2016-005]-->
+
+```{=html}
+<!--<iframe width="1600" height="900" src="http://127.0.0.1:5500/articles/RJ-2016-005/" title="R Journal"></iframe>-->
+```
+<!-- Web Version -->
+```{=html}
+<iframe width="1600" height="900" src="https://rjournal.github.io/articles/RJ-2016-005/" title="R Journal"></iframe>
+```
 
 ## {}
 
 ### Demo : View any LaTeX R Journal article you like
 
 ```{=html}
+<!--<iframe width="1600" height="900" src"http://127.0.0.1:5500/" title="R Journal"></iframe>-->
+```
+<!-- Web Version -->
+```{=html}
 <iframe width="1600" height="900" src="https://rjournal.github.io/" title="R Journal"></iframe>
 ```
 
+## {}
+
+
+### Demo : Showing the conversion process on a sample article
+
 
 ## {}
 
-::: columns
-### Demo : Showing the conversion process on a supplementary articles
-:::
-
-## {}
-
-::: columns
-::: {.column width="60%"}
 ### Global Collaboration : Natural diversity and inclusion in this project
+
+::: columns
+::: {.column width="40%" .fragment .fade-in}
+
 
 <!--Add emojis --> Mentors are from UK, Australia, France
 
  Project Funding is received from Google, USA
 
  I hail from India and my mentee is from mainland China
-<!-- use chatgpt to produce a map with highlights -->
+
+:::
+::: {.column width="60%"}
+![](resources/global.png){.center}
 :::
 :::
 
 ## {}
 
 ::: columns
-::: {.column width="70%"}
-### Expected Impact of converting the legacy articles to Rmarkdown
+::: {.column width="30%"}
+![](resources/peru_image.png){.image-left}
+:::
+::: {.column width="70%" .fragment .fade-in}
+### Expected Impact of this migration
 
 - Accessibility improvements
 
@@ -293,9 +391,7 @@ plot(filtered_data, type = 'o' ,fill = TRUE, xlab = "Year", ylab = "No. of artic
 - Motivation for authors to bring their LaTeX papers to Rmarkdown/web format
 
 :::
-::: {.column width="30%"}
-![](resources/peru_image.png){.image-right}
-:::
+
 :::
 
 ## {}
@@ -304,7 +400,7 @@ plot(filtered_data, type = 'o' ,fill = TRUE, xlab = "Year", ylab = "No. of artic
 ::: {.column width="30%"}
 ![](resources/powderblue_image.png){.image-left}
 :::
-::: {.column width="70%"}
+::: {.column width="70%" .fragment .fade-in}
 ### Upcoming : Support for Sweave articles
 
 Use of custom Pandoc readers in Lua.
@@ -329,18 +425,54 @@ More features to come like support for algorithms using `pseudocodejs` and auto-
 ## {}
 
 ::: columns
+
+::: {.column width="30%"}
+![](resources/navy_image.png){.image-left}
+:::
+
+::: {.column width="70%" .fragment .fade-in}
 ### Best practices for better accessibility and easier conversions
 
+1. Include meaningful alt-text for the images included.
+2. Following the R Journal guidelines while writing LaTeX articles.
+3. Use simpler LaTeX constructs instead of long complicated LaTeX markups.
+
+[4. **Try to adopt Rmarkdown.**]{.fragment .fade-in}
 :::
+
+:::
+
 
 ## {}
 
-::: columns
-::: {.column width="60%"}
 ### Wrapping Up : Your Favourite articles now in Rmarkdown 
 
+::: columns
+
+::: {.column width="70%" }
+
+#### Special Thanks to our sponsors who funded these Initiatives
+
+[Google Summer of Code 2024](https://summerofcode.withgoogle.com/programs/2024/projects/hBLJrIOd)
+
+[R consortium Grant 2023](https://www.r-consortium.org/all-projects/awarded-projects/2023-group-2#Accessibility%20Enhancements%20for%20the%20R%20Journal)
+
+[Google Summer of Code 2023](https://summerofcode.withgoogle.com/archive/2023/projects/4ygPTJA9)
+
+[Google Summer of Code 2022](https://summerofcode.withgoogle.com/archive/2022/projects/8jppNXtC)
+
+[R consortium Grant 2021](https://www.r-consortium.org/blog/2021/12/01/r-consortium-funding-delivers-new-format-for-the-r-journal)
 
 :::
+
+::: {.column width="30%" }
+
+![](resources/rconsortium-stacked-color.svg){width="100%"}
+
+![](resources/GSoC-Vertical.png){width="100%"}
+
+:::
+
 :::
 <!-- -->
 
