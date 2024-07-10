@@ -183,7 +183,7 @@ Convert_To_Markdown<- function(input_file){
 
 ## {auto-animate=true}
 
-### Core Idea
+### Core idea
 
 
 Convert the LaTeX article to markdown
@@ -333,7 +333,7 @@ filtered_data = year_wise_data |>
 plot(filtered_data, type = 'o' ,fill = TRUE, xlab = "Year", ylab = "No. of articles converted")
 ```
 
-![](resources/plot.png)
+![](resources/plot.png){width="100%"}
 :::
 :::
 
