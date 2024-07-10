@@ -209,9 +209,25 @@ Convert_To_Markdown<- function(input_file){
 ### Workflow of the conversion
 
 
-::: {.fragment .fade-in}
+::: {.fragment .fade-in .column width="50%"}
 
-![](resources/workflow.png){width="50%"}
+![](resources/workflow.png){width="100%"}
+
+:::
+
+::: {.fragment .fade-in .column width="50%"}
+
+#### Conversion Workdlow
+
+```
+LaTeX  --- > simplified LaTeX
+
+simplified LaTeX --- > Markdown
+
+Markdown --- > Rmarkdown
+
+Rmarkdown --- > HTML
+```
 
 :::
 
@@ -230,9 +246,47 @@ function Div(el)
     end
 end
 ```
+:::
 
 :::
-:::
+
+## {auto-animate=true}
+
+#### rebib converts `\bibitem` bibliography into `BibTeX`
+
+```latex
+\bibitem[R Core Team]{R}
+R Core Team
+\newblock R: A Language and Environment for Statistical Computing
+\newblock \emph{R Foundation for Statistical Computing}, Vienna, Austria \penalty0 2016.
+\newblock URL : \url{https://www.R-project.org/}, ISBN 3-900051-07-0
+```
+
+## {auto-animate=true}
+
+#### rebib converts `\bibitem` bibliography into `BibTeX`
+
+```latex
+\bibitem[R Core Team]{R}
+R Core Team
+\newblock R: A Language and Environment for Statistical Computing
+\newblock \emph{R Foundation for Statistical Computing}, Vienna, Austria \penalty0 2016.
+\newblock URL : \url{https://www.R-project.org/}, ISBN 3-900051-07-0
+```
+
+into 
+
+```latex
+@book{R,
+author = {{R Core Team}},
+title = {{R: A Language and Environment for Statistical Computing}},
+publisher = {R Foundation for Statistical Computing Vienna Austria},
+year = {2016},
+url = {https://www.R-project.org/},
+isbn = {3-900051-07-0}
+}
+```
+
 
 
 <!-- --->
@@ -284,9 +338,9 @@ quantile(file_sizes,na.rm = TRUE)
 ```
 
 ```
-[1] "Mean file size in KB"
-[1] 1557.364
-[1] "Quantile variation in file sizes in KB"
+Mean file size in KB :  1557.364
+
+Quantile variation in file sizes in KB
         0%        25%        50%        75%       100% 
   437.8060   721.1582  1066.1580  1764.5007 17276.2060 
 ```
@@ -413,11 +467,11 @@ plot(filtered_data, type = 'o' ,fill = TRUE, xlab = "Year", ylab = "No. of artic
 ::: {.column width="40%" .fragment .fade-in}
 
 
-<!--Add emojis --> Mentors are from UK, Australia, France
+- My mentors are from UK, Australia, France
 
- Project Funding is received from Google, USA
+- Project Funding is received from Google, USA
 
- I hail from India and my mentee is from mainland China
+- I hail from India and my mentee is from mainland China
 
 :::
 ::: {.column width="60%"}
@@ -451,18 +505,64 @@ plot(filtered_data, type = 'o' ,fill = TRUE, xlab = "Year", ylab = "No. of artic
 ![](resources/powderblue_image.png){.image-left}
 :::
 ::: {.column width="70%" .fragment .fade-in}
-### Upcoming : Support for Sweave articles
+### Upcoming features to texor package
 
-Use of custom Pandoc readers in Lua.
+Bringing conversion support to Sweave articles by:
 
-Retaining executable code chunks and inline code chunks
+1. Use of custom Pandoc readers in Lua.
+2. Retaining executable code chunks and inline code chunks.
+3. Best efforts to retain meta-data in the yaml.
+4. Adding more features to come like support for algorithms using `pseudocodejs` and auto-numbering equations just like in LaTeX.
 
-Best efforts to retain meta-data in the yaml
-
-More features to come like support for algorithms using `pseudocodejs` and auto-numbering equations just like in LaTeX.
 :::
 :::
 
+## {}
+
+#### The custom pandoc reader that we are using
+
+```lua
+-- A sample custom reader that just read Sweave code chunks.
+
+
+-- For better performance we put these functions in local variables:
+local P, S, R, Cf, Cc, Ct, V, Cs, Cg, Cb, B, C, Cmt =
+  lpeg.P, lpeg.S, lpeg.R, lpeg.Cf, lpeg.Cc, lpeg.Ct, lpeg.V,
+  lpeg.Cs, lpeg.Cg, lpeg.Cb, lpeg.B, lpeg.C, lpeg.Cmt
+
+local whitespacechar = S(" \t\r\n")
+local spacechar = S(" \t")
+local newline = P"\r"^-1 * P"\n"
+local blankline = spacechar^0 * newline
+local codeblockstart = P"<<"
+                        * spacechar^0 -- Ignore spaces
+                        * C((P(1) - P(spacechar^0 * P">>="))^0) -- Capture attributes between << and >>=
+                        * spacechar^0 -- Ignore spaces
+                        * ">>="
+
+-- Grammar
+G = P{ "Pandoc",
+    Pandoc = Ct(V"Block"^0) / pandoc.Pandoc;
+    Block = blankline^0
+          * ( V"CodeBlock"
+            + V"Para");
+    Para = P(P(1) - codeblockstart)^1
+            * newline^0;
+    CodeBlock = codeblockstart
+                * blankline
+                * C((1 - (newline * P"@"))^0) -- Capture codes between << >>= and @
+                * newline
+                * P"@"
+                / function(attributes, code) -- Return a CodeBlock with the captured attributes and codes
+                    return pandoc.CodeBlock(code, {attributes = attributes})
+                  end;
+}
+
+
+function Reader(input, reader_options)
+    return lpeg.match(G, tostring(input))
+end
+```
 
 ## {}
 
@@ -487,7 +587,7 @@ More features to come like support for algorithms using `pseudocodejs` and auto-
 3. Use simpler LaTeX constructs instead of long complicated LaTeX markups.
 Like try to use `\section{Introduction}` , instead of
 
-`{ \normalfont\fontsize{12}{15}\bfseries Introduction }`
+`{\normalfont\fontsize{12}{15}\bfseries Introduction}`
 
 
 
@@ -509,13 +609,13 @@ Like try to use `\section{Introduction}` , instead of
 
 [Google Summer of Code 2024](https://summerofcode.withgoogle.com/programs/2024/projects/hBLJrIOd)
 
-[R consortium Grant 2023](https://www.r-consortium.org/all-projects/awarded-projects/2023-group-2#Accessibility%20Enhancements%20for%20the%20R%20Journal)
+[R Consortium Grant 2023](https://www.r-consortium.org/all-projects/awarded-projects/2023-group-2#Accessibility%20Enhancements%20for%20the%20R%20Journal)
 
 [Google Summer of Code 2023](https://summerofcode.withgoogle.com/archive/2023/projects/4ygPTJA9)
 
 [Google Summer of Code 2022](https://summerofcode.withgoogle.com/archive/2022/projects/8jppNXtC)
 
-[R consortium Grant 2021](https://www.r-consortium.org/blog/2021/12/01/r-consortium-funding-delivers-new-format-for-the-r-journal)
+[R Consortium Grant 2021](https://www.r-consortium.org/blog/2021/12/01/r-consortium-funding-delivers-new-format-for-the-r-journal)
 
 :::
 

@@ -517,24 +517,60 @@
 <section id="section-8" class="slide level2">
 <h2></h2>
 <h3 id="workflow-of-the-conversion">Workflow of the conversion</h3>
-<div class="fragment fade-in">
-<p><img data-src="resources/workflow.png" style="width:50.0%"></p>
-</div>
-</section>
+<div class="fragment fade-in column" style="width:50%;">
+<p><img data-src="resources/workflow.png" style="width:100.0%"></p>
+</div><div class="fragment fade-in column" style="width:50%;">
+<!-- -->
+<h4 id="conversion-workdlow">Conversion Workdlow</h4>
+<pre><code>LaTeX  --- &gt; simplified LaTeX
+
+simplified LaTeX --- &gt; Markdown
+
+Markdown --- &gt; Rmarkdown
+
+Rmarkdown --- &gt; HTML</code></pre>
+</div></section>
 <section id="section-9" class="slide level2">
 <h2></h2>
 <div class="columns">
 <h3 id="my-first-pandoc-lua-filter">My first pandoc Lua filter</h3>
 <div class="column fragment fade-in" style="width:100%;">
-<div class="sourceCode" id="cb3"><pre class="sourceCode numberSource lua number-lines code-with-copy"><code class="sourceCode lua"><span id="cb3-1"><a href=""></a><span class="kw">function</span> Div<span class="op">(</span><span class="va">el</span><span class="op">)</span></span>
-<span id="cb3-2"><a href=""></a>    <span class="cf">if</span> <span class="va">el</span><span class="op">.</span><span class="va">classes</span><span class="op">[</span><span class="dv">1</span><span class="op">]</span> <span class="op">==</span> <span class="st">'thebibliography'</span> <span class="cf">then</span></span>
-<span id="cb3-3"><a href=""></a>        <span class="cf">return</span> <span class="op">{</span> <span class="op">}</span></span>
-<span id="cb3-4"><a href=""></a>    <span class="cf">end</span></span>
-<span id="cb3-5"><a href=""></a><span class="kw">end</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode numberSource lua number-lines code-with-copy"><code class="sourceCode lua"><span id="cb4-1"><a href=""></a><span class="kw">function</span> Div<span class="op">(</span><span class="va">el</span><span class="op">)</span></span>
+<span id="cb4-2"><a href=""></a>    <span class="cf">if</span> <span class="va">el</span><span class="op">.</span><span class="va">classes</span><span class="op">[</span><span class="dv">1</span><span class="op">]</span> <span class="op">==</span> <span class="st">'thebibliography'</span> <span class="cf">then</span></span>
+<span id="cb4-3"><a href=""></a>        <span class="cf">return</span> <span class="op">{</span> <span class="op">}</span></span>
+<span id="cb4-4"><a href=""></a>    <span class="cf">end</span></span>
+<span id="cb4-5"><a href=""></a><span class="kw">end</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div></div>
+</section>
+<section id="section-10" class="slide level2" data-auto-animate="true">
+<h2 data-id="quarto-animate-title"></h2>
+<h4 id="rebib-converts-bibitem-bibliography-into-bibtex">rebib converts <code>\bibitem</code> bibliography into <code>BibTeX</code></h4>
+<div class="sourceCode" id="cb5"><pre class="sourceCode numberSource latex number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode latex hljs"><span id="cb5-1" class="hljs-ln-code"><a href=""></a><span class="fu">\bibitem</span>[R Core Team]{R}</span>
+<span id="cb5-2" class="hljs-ln-code"><a href=""></a>R Core Team</span>
+<span id="cb5-3" class="hljs-ln-code"><a href=""></a><span class="fu">\newblock</span> R: A Language and Environment for Statistical Computing</span>
+<span id="cb5-4" class="hljs-ln-code"><a href=""></a><span class="fu">\newblock</span> <span class="fu">\emph</span>{R Foundation for Statistical Computing}, Vienna, Austria <span class="fu">\penalty</span>0 2016.</span>
+<span id="cb5-5" class="hljs-ln-code"><a href=""></a><span class="fu">\newblock</span> URL : <span class="fu">\url</span>{https://www.R-project.org/}, ISBN 3-900051-07-0</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="section-11" class="slide level2" data-auto-animate="true">
+<h2 data-id="quarto-animate-title"></h2>
+<h4 id="rebib-converts-bibitem-bibliography-into-bibtex-1">rebib converts <code>\bibitem</code> bibliography into <code>BibTeX</code></h4>
+<div class="sourceCode" id="cb6"><pre class="sourceCode numberSource latex number-lines code-with-copy"><code class="sourceCode latex"><span id="cb6-1"><a href=""></a><span class="fu">\bibitem</span>[R Core Team]{R}</span>
+<span id="cb6-2"><a href=""></a>R Core Team</span>
+<span id="cb6-3"><a href=""></a><span class="fu">\newblock</span> R: A Language and Environment for Statistical Computing</span>
+<span id="cb6-4"><a href=""></a><span class="fu">\newblock</span> <span class="fu">\emph</span>{R Foundation for Statistical Computing}, Vienna, Austria <span class="fu">\penalty</span>0 2016.</span>
+<span id="cb6-5"><a href=""></a><span class="fu">\newblock</span> URL : <span class="fu">\url</span>{https://www.R-project.org/}, ISBN 3-900051-07-0</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>into</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode numberSource latex number-lines code-with-copy"><code class="sourceCode latex"><span id="cb7-1"><a href=""></a>@book{R,</span>
+<span id="cb7-2"><a href=""></a>author = {{R Core Team}},</span>
+<span id="cb7-3"><a href=""></a>title = {{R: A Language and Environment for Statistical Computing}},</span>
+<span id="cb7-4"><a href=""></a>publisher = {R Foundation for Statistical Computing Vienna Austria},</span>
+<span id="cb7-5"><a href=""></a>year = {2016},</span>
+<span id="cb7-6"><a href=""></a>url = {https://www.R-project.org/},</span>
+<span id="cb7-7"><a href=""></a>isbn = {3-900051-07-0}</span>
+<span id="cb7-8"><a href=""></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <!-- --->
 </section>
-<section id="section-10" class="slide level2">
+<section id="section-12" class="slide level2">
 <h2></h2>
 <div class="column fragment fade-in" style="width:70%;">
 <!-- -->
@@ -547,22 +583,22 @@
 </div><div class="column" style="width:30%;">
 <p><img data-src="resources/mediumseagreen_image.png" class="image-right"></p>
 </div></section>
-<section id="section-11" class="slide level2">
+<section id="section-13" class="slide level2">
 <h2></h2>
 <h3 id="insights-article-sizes-across-articles">Insights : Article sizes across articles</h3>
 <div class="columns">
 <div class="column fragment fade-in" style="width:70%;">
 <!-- Not included as the analytics will not run elsewhere-->
-<pre><code>[1] "Mean file size in KB"
-[1] 1557.364
-[1] "Quantile variation in file sizes in KB"
+<pre><code>Mean file size in KB :  1557.364
+
+Quantile variation in file sizes in KB
         0%        25%        50%        75%       100% 
   437.8060   721.1582  1066.1580  1764.5007 17276.2060 </code></pre>
 </div><div class="column" style="width:30%;">
 <p><img data-src="resources/darkviolet_image.png" class="image-right"></p>
 </div></div>
 </section>
-<section id="section-12" class="slide level2">
+<section id="section-14" class="slide level2">
 <h2></h2>
 <div class="columns">
 <div class="column fragment fade-in" style="width:100%;">
@@ -572,7 +608,7 @@
 <p><img data-src="resources/plot.png" style="width:85.0%"></p>
 </div></div>
 </section>
-<section id="section-13" class="slide level2">
+<section id="section-15" class="slide level2">
 <h2></h2>
 <h3 id="insights-articles-which-i-found-interesting">Insights : Articles which I found interesting</h3>
 <!-- Articles with animations [RJ-2011-19]-->
@@ -581,52 +617,53 @@
 <!-- Web Version -->
 <iframe width="1600" height="900" src="https://rjournal.github.io/articles/RJ-2011-019/" title="R Journal"></iframe>
 </section>
-<section id="section-14" class="slide level2">
+<section id="section-16" class="slide level2">
 <h2></h2>
 <!-- Articles with animations  RJ-2015-34-->
 <!--<iframe width="1600" height="900" src="http://127.0.0.1:5500/articles/RJ-2015-034/" title="R Journal"></iframe>-->
 <!-- Web Version -->
 <iframe width="1600" height="900" src="https://rjournal.github.io/articles/RJ-2015-034/" title="R Journal"></iframe>
 </section>
-<section id="section-15" class="slide level2">
+<section id="section-17" class="slide level2">
 <h2></h2>
 <!-- SparkTable converted beautifully [RJ-2015-003]-->
 <!--<iframe width="1600" height="900" src="http://127.0.0.1:5500/articles/RJ-2015-003/" title="R Journal"></iframe>-->
 <!-- Web Version -->
 <iframe width="1600" height="900" src="https://rjournal.github.io/articles/RJ-2015-003/" title="R Journal"></iframe>
 </section>
-<section id="section-16" class="slide level2">
+<section id="section-18" class="slide level2">
 <h2></h2>
 <!-- Creative way to represent color bars [RJ-2016-005]-->
 <!--<iframe width="1600" height="900" src="http://127.0.0.1:5500/articles/RJ-2016-005/" title="R Journal"></iframe>-->
 <!-- Web Version -->
 <iframe width="1600" height="900" src="https://rjournal.github.io/articles/RJ-2016-005/" title="R Journal"></iframe>
 </section>
-<section id="section-17" class="slide level2">
+<section id="section-19" class="slide level2">
 <h2></h2>
 <h3 id="demo-view-any-latex-r-journal-article-you-like">Demo : View any LaTeX R Journal article you like</h3>
 <!--<iframe width="1600" height="900" src"http://127.0.0.1:5500/" title="R Journal"></iframe>-->
 <!-- Web Version -->
 <iframe width="1600" height="900" src="https://rjournal.github.io/" title="R Journal"></iframe>
 </section>
-<section id="section-18" class="slide level2">
+<section id="section-20" class="slide level2">
 <h2></h2>
 <h3 id="demo-showing-the-conversion-process-on-a-sample-article">Demo : Showing the conversion process on a sample article</h3>
 </section>
-<section id="section-19" class="slide level2">
+<section id="section-21" class="slide level2">
 <h2></h2>
 <h3 id="global-collaboration-natural-diversity-and-inclusion-in-this-project">Global Collaboration : Natural diversity and inclusion in this project</h3>
 <div class="columns">
 <div class="column fragment fade-in" style="width:40%;">
-<!--Add emojis -->
-<p>Mentors are from UK, Australia, France</p>
-<p>Project Funding is received from Google, USA</p>
-<p>I hail from India and my mentee is from mainland China</p>
+<ul>
+<li><p>My mentors are from UK, Australia, France</p></li>
+<li><p>Project Funding is received from Google, USA</p></li>
+<li><p>I hail from India and my mentee is from mainland China</p></li>
+</ul>
 </div><div class="column" style="width:60%;">
 <p><img data-src="resources/global.png" class="center"></p>
 </div></div>
 </section>
-<section id="section-20" class="slide level2">
+<section id="section-22" class="slide level2">
 <h2></h2>
 <div class="columns">
 <div class="column" style="width:30%;">
@@ -641,28 +678,75 @@
 </ul>
 </div></div>
 </section>
-<section id="section-21" class="slide level2">
+<section id="section-23" class="slide level2">
 <h2></h2>
 <div class="columns">
 <div class="column" style="width:30%;">
 <p><img data-src="resources/powderblue_image.png" class="image-left"></p>
 </div><div class="column fragment fade-in" style="width:70%;">
 <!-- -->
-<h3 id="upcoming-support-for-sweave-articles">Upcoming : Support for Sweave articles</h3>
-<p>Use of custom Pandoc readers in Lua.</p>
-<p>Retaining executable code chunks and inline code chunks</p>
-<p>Best efforts to retain meta-data in the yaml</p>
-<p>More features to come like support for algorithms using <code>pseudocodejs</code> and auto-numbering equations just like in LaTeX.</p>
+<h3 id="upcoming-features-to-texor-package">Upcoming features to texor package</h3>
+<p>Bringing conversion support to Sweave articles by:</p>
+<ol type="1">
+<li>Use of custom Pandoc readers in Lua.</li>
+<li>Retaining executable code chunks and inline code chunks.</li>
+<li>Best efforts to retain meta-data in the yaml.</li>
+<li>Adding more features to come like support for algorithms using <code>pseudocodejs</code> and auto-numbering equations just like in LaTeX.</li>
+</ol>
 </div></div>
 </section>
-<section id="section-22" class="slide level2">
+<section id="section-24" class="slide level2">
+<h2></h2>
+<h4 id="the-custom-pandoc-reader-that-we-are-using">The custom pandoc reader that we are using</h4>
+<div class="sourceCode" id="cb9"><pre class="sourceCode numberSource lua number-lines code-with-copy"><code class="sourceCode lua"><span id="cb9-1"><a href=""></a><span class="co">-- A sample custom reader that just read Sweave code chunks.</span></span>
+<span id="cb9-2"><a href=""></a></span>
+<span id="cb9-3"><a href=""></a></span>
+<span id="cb9-4"><a href=""></a><span class="co">-- For better performance we put these functions in local variables:</span></span>
+<span id="cb9-5"><a href=""></a><span class="kw">local</span> <span class="cn">P</span><span class="op">,</span> <span class="cn">S</span><span class="op">,</span> <span class="cn">R</span><span class="op">,</span> <span class="va">Cf</span><span class="op">,</span> <span class="va">Cc</span><span class="op">,</span> <span class="va">Ct</span><span class="op">,</span> <span class="cn">V</span><span class="op">,</span> <span class="va">Cs</span><span class="op">,</span> <span class="va">Cg</span><span class="op">,</span> <span class="va">Cb</span><span class="op">,</span> <span class="cn">B</span><span class="op">,</span> <span class="cn">C</span><span class="op">,</span> <span class="va">Cmt</span> <span class="op">=</span></span>
+<span id="cb9-6"><a href=""></a>  <span class="va">lpeg</span><span class="op">.</span><span class="cn">P</span><span class="op">,</span> <span class="va">lpeg</span><span class="op">.</span><span class="cn">S</span><span class="op">,</span> <span class="va">lpeg</span><span class="op">.</span><span class="cn">R</span><span class="op">,</span> <span class="va">lpeg</span><span class="op">.</span><span class="va">Cf</span><span class="op">,</span> <span class="va">lpeg</span><span class="op">.</span><span class="va">Cc</span><span class="op">,</span> <span class="va">lpeg</span><span class="op">.</span><span class="va">Ct</span><span class="op">,</span> <span class="va">lpeg</span><span class="op">.</span><span class="cn">V</span><span class="op">,</span></span>
+<span id="cb9-7"><a href=""></a>  <span class="va">lpeg</span><span class="op">.</span><span class="va">Cs</span><span class="op">,</span> <span class="va">lpeg</span><span class="op">.</span><span class="va">Cg</span><span class="op">,</span> <span class="va">lpeg</span><span class="op">.</span><span class="va">Cb</span><span class="op">,</span> <span class="va">lpeg</span><span class="op">.</span><span class="cn">B</span><span class="op">,</span> <span class="va">lpeg</span><span class="op">.</span><span class="cn">C</span><span class="op">,</span> <span class="va">lpeg</span><span class="op">.</span><span class="va">Cmt</span></span>
+<span id="cb9-8"><a href=""></a></span>
+<span id="cb9-9"><a href=""></a><span class="kw">local</span> <span class="va">whitespacechar</span> <span class="op">=</span> S<span class="op">(</span><span class="st">" </span><span class="sc">\t\r\n</span><span class="st">"</span><span class="op">)</span></span>
+<span id="cb9-10"><a href=""></a><span class="kw">local</span> <span class="va">spacechar</span> <span class="op">=</span> S<span class="op">(</span><span class="st">" </span><span class="sc">\t</span><span class="st">"</span><span class="op">)</span></span>
+<span id="cb9-11"><a href=""></a><span class="kw">local</span> <span class="va">newline</span> <span class="op">=</span> P<span class="st">"</span><span class="sc">\r</span><span class="st">"</span><span class="op">^-</span><span class="dv">1</span> <span class="op">*</span> P<span class="st">"</span><span class="sc">\n</span><span class="st">"</span></span>
+<span id="cb9-12"><a href=""></a><span class="kw">local</span> <span class="va">blankline</span> <span class="op">=</span> <span class="va">spacechar</span><span class="op">^</span><span class="dv">0</span> <span class="op">*</span> <span class="va">newline</span></span>
+<span id="cb9-13"><a href=""></a><span class="kw">local</span> <span class="va">codeblockstart</span> <span class="op">=</span> P<span class="st">"&lt;&lt;"</span></span>
+<span id="cb9-14"><a href=""></a>                        <span class="op">*</span> <span class="va">spacechar</span><span class="op">^</span><span class="dv">0</span> <span class="co">-- Ignore spaces</span></span>
+<span id="cb9-15"><a href=""></a>                        <span class="op">*</span> C<span class="op">((</span>P<span class="op">(</span><span class="dv">1</span><span class="op">)</span> <span class="op">-</span> P<span class="op">(</span><span class="va">spacechar</span><span class="op">^</span><span class="dv">0</span> <span class="op">*</span> P<span class="st">"&gt;&gt;="</span><span class="op">))^</span><span class="dv">0</span><span class="op">)</span> <span class="co">-- Capture attributes between &lt;&lt; and &gt;&gt;=</span></span>
+<span id="cb9-16"><a href=""></a>                        <span class="op">*</span> <span class="va">spacechar</span><span class="op">^</span><span class="dv">0</span> <span class="co">-- Ignore spaces</span></span>
+<span id="cb9-17"><a href=""></a>                        <span class="op">*</span> <span class="st">"&gt;&gt;="</span></span>
+<span id="cb9-18"><a href=""></a></span>
+<span id="cb9-19"><a href=""></a><span class="co">-- Grammar</span></span>
+<span id="cb9-20"><a href=""></a><span class="cn">G</span> <span class="op">=</span> P<span class="op">{</span> <span class="st">"Pandoc"</span><span class="op">,</span></span>
+<span id="cb9-21"><a href=""></a>    <span class="va">Pandoc</span> <span class="op">=</span> Ct<span class="op">(</span>V<span class="st">"Block"</span><span class="op">^</span><span class="dv">0</span><span class="op">)</span> <span class="op">/</span> <span class="va">pandoc</span><span class="op">.</span><span class="va">Pandoc</span><span class="op">;</span></span>
+<span id="cb9-22"><a href=""></a>    <span class="va">Block</span> <span class="op">=</span> <span class="va">blankline</span><span class="op">^</span><span class="dv">0</span></span>
+<span id="cb9-23"><a href=""></a>          <span class="op">*</span> <span class="op">(</span> V<span class="st">"CodeBlock"</span></span>
+<span id="cb9-24"><a href=""></a>            <span class="op">+</span> V<span class="st">"Para"</span><span class="op">);</span></span>
+<span id="cb9-25"><a href=""></a>    <span class="va">Para</span> <span class="op">=</span> P<span class="op">(</span>P<span class="op">(</span><span class="dv">1</span><span class="op">)</span> <span class="op">-</span> <span class="va">codeblockstart</span><span class="op">)^</span><span class="dv">1</span></span>
+<span id="cb9-26"><a href=""></a>            <span class="op">*</span> <span class="va">newline</span><span class="op">^</span><span class="dv">0</span><span class="op">;</span></span>
+<span id="cb9-27"><a href=""></a>    <span class="va">CodeBlock</span> <span class="op">=</span> <span class="va">codeblockstart</span></span>
+<span id="cb9-28"><a href=""></a>                <span class="op">*</span> <span class="va">blankline</span></span>
+<span id="cb9-29"><a href=""></a>                <span class="op">*</span> C<span class="op">((</span><span class="dv">1</span> <span class="op">-</span> <span class="op">(</span><span class="va">newline</span> <span class="op">*</span> P<span class="st">"@"</span><span class="op">))^</span><span class="dv">0</span><span class="op">)</span> <span class="co">-- Capture codes between &lt;&lt; &gt;&gt;= and @</span></span>
+<span id="cb9-30"><a href=""></a>                <span class="op">*</span> <span class="va">newline</span></span>
+<span id="cb9-31"><a href=""></a>                <span class="op">*</span> P<span class="st">"@"</span></span>
+<span id="cb9-32"><a href=""></a>                <span class="op">/</span> <span class="kw">function</span><span class="op">(</span><span class="va">attributes</span><span class="op">,</span> <span class="va">code</span><span class="op">)</span> <span class="co">-- Return a CodeBlock with the captured attributes and codes</span></span>
+<span id="cb9-33"><a href=""></a>                    <span class="cf">return</span> <span class="va">pandoc</span><span class="op">.</span>CodeBlock<span class="op">(</span><span class="va">code</span><span class="op">,</span> <span class="op">{</span><span class="va">attributes</span> <span class="op">=</span> <span class="va">attributes</span><span class="op">})</span></span>
+<span id="cb9-34"><a href=""></a>                  <span class="kw">end</span><span class="op">;</span></span>
+<span id="cb9-35"><a href=""></a><span class="op">}</span></span>
+<span id="cb9-36"><a href=""></a></span>
+<span id="cb9-37"><a href=""></a></span>
+<span id="cb9-38"><a href=""></a><span class="kw">function</span> Reader<span class="op">(</span><span class="va">input</span><span class="op">,</span> <span class="va">reader_options</span><span class="op">)</span></span>
+<span id="cb9-39"><a href=""></a>    <span class="cf">return</span> <span class="va">lpeg</span><span class="op">.</span>match<span class="op">(</span><span class="cn">G</span><span class="op">,</span> <span class="fu">tostring</span><span class="op">(</span><span class="va">input</span><span class="op">))</span></span>
+<span id="cb9-40"><a href=""></a><span class="kw">end</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="section-25" class="slide level2">
 <h2></h2>
 <div class="columns">
 <h3 id="demo-a-brief-demonstration-of-showing-the-conversion-of-bradley-terry2-vignette">Demo : A brief demonstration of showing the conversion of Bradley Terry2 vignette</h3>
 </div>
 <!-- To be added -->
 </section>
-<section id="section-23" class="slide level2">
+<section id="section-26" class="slide level2">
 <h2></h2>
 <div class="columns">
 <div class="column fragment fade-in" style="width:100%;">
@@ -673,21 +757,21 @@
 <li>Following the R Journal guidelines while writing LaTeX articles.</li>
 <li>Use simpler LaTeX constructs instead of long complicated LaTeX markups. Like try to use <code>\section{Introduction}</code> , instead of</li>
 </ol>
-<p><code>{ \normalfont\fontsize{12}{15}\bfseries Introduction }</code></p>
+<p><code>{\normalfont\fontsize{12}{15}\bfseries Introduction}</code></p>
 <p><span class="fragment fade-in">4. <strong>Try to adopt Rmarkdown.</strong></span></p>
 </div></div>
 </section>
-<section id="section-24" class="slide level2">
+<section id="section-27" class="slide level2">
 <h2></h2>
 <h3 id="wrapping-up-your-favourite-articles-now-in-rmarkdown">Wrapping Up : Your Favourite articles now in Rmarkdown</h3>
 <div class="columns">
 <div class="column" style="width:70%;">
 <h4 id="special-thanks-to-our-sponsors-who-funded-these-initiatives">Special Thanks to our sponsors who funded these Initiatives</h4>
 <p><a href="https://summerofcode.withgoogle.com/programs/2024/projects/hBLJrIOd">Google Summer of Code 2024</a></p>
-<p><a href="https://www.r-consortium.org/all-projects/awarded-projects/2023-group-2#Accessibility%20Enhancements%20for%20the%20R%20Journal">R consortium Grant 2023</a></p>
+<p><a href="https://www.r-consortium.org/all-projects/awarded-projects/2023-group-2#Accessibility%20Enhancements%20for%20the%20R%20Journal">R Consortium Grant 2023</a></p>
 <p><a href="https://summerofcode.withgoogle.com/archive/2023/projects/4ygPTJA9">Google Summer of Code 2023</a></p>
 <p><a href="https://summerofcode.withgoogle.com/archive/2022/projects/8jppNXtC">Google Summer of Code 2022</a></p>
-<p><a href="https://www.r-consortium.org/blog/2021/12/01/r-consortium-funding-delivers-new-format-for-the-r-journal">R consortium Grant 2021</a></p>
+<p><a href="https://www.r-consortium.org/blog/2021/12/01/r-consortium-funding-delivers-new-format-for-the-r-journal">R Consortium Grant 2021</a></p>
 </div><div class="column" style="width:30%;">
 <p><img data-src="resources/rconsortium-stacked-color.svg" style="width:100.0%"></p>
 <p><img data-src="resources/GSoC-Vertical.png" style="width:100.0%"></p>
