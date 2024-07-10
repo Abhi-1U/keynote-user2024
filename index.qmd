@@ -333,7 +333,7 @@ filtered_data = year_wise_data |>
 plot(filtered_data, type = 'o' ,fill = TRUE, xlab = "Year", ylab = "No. of articles converted")
 ```
 
-![](resources/plot.png){width="100%"}
+![](resources/plot.png){width="85%"}
 :::
 :::
 
