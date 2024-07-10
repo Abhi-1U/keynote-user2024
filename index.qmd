@@ -129,8 +129,6 @@ Your favorite R Journal articles, Now in RMarkdown (web format)
 
 - [`Lua Filters`](https://pandoc.org/lua-filters.html) : Fixing references, managing markups and numbering.
 
-- [`Rebib`](https://cran.r-project.org/package=rebib) : Handled the bibliographies
-
 -  [`rj`](https://github.com/mitchelloharawild/rj) : Extracting and placing the metadata in the yaml
 
 - [`pdftools`](https://cran.r-project.org/package=pdftools) : Converting PDF fragments to PNG
@@ -143,25 +141,78 @@ Your favorite R Journal articles, Now in RMarkdown (web format)
 ![](resources/fuchsia_image.png){.image-right}
 :::
 
-
-<!-- To Be added--->
 ## {}
 
-### Main idea
+::: {.column width="70%" .fragment .fade-in}
 
-::: fragment
-::: {.fragment .fade-in}
+### What we built
+
+- [`texor`](https://cran.r-project.org/package=rebib) : Orchestrates the conversion and provides essential tools
+
+- [`rebib`](https://cran.r-project.org/package=rebib) : Handles the bibliographies
+
+
+:::
+
+::: {.column width="30%"}
+![](resources/steelblue_image.png){.image-right}
+:::
+
+
+
+## {auto-animate=true}
+
+### Core idea
+
+
+
+Convert the LaTeX article to markdown
 
 ```r
+## One of the very first functions of texor package 
 Convert_To_Markdown<- function(input_file){
-  old_working_dir=getwd()
+  old_working_dir=getwd()  
   setwd(dirname(input_file))
   md_file_name=paste(toString(tools::file_path_sans_ext(input_file)),".md",sep="")
   rmarkdown::pandoc_convert(input_file, to= "markdown",output=md_file_name)
-  setwd(old_working_dir)
+  setwd(old_working_dir) 
 }
 ```
+
+
+
+## {auto-animate=true}
+
+### Core Idea
+
+
+Convert the LaTeX article to markdown
+
+```r
+## Some commits later
+Convert_To_Markdown<- function(input_file){
+  old_working_dir=getwd()  
+  setwd(dirname(input_file))
+  on.exit(setwd(old_working_dir))
+  md_file_name=paste(toString(tools::file_path_sans_ext(input_file)),".md",sep="")
+  rmarkdown::pandoc_convert(input_file, to= "markdown",output=md_file_name) 
+}
+```
+
+
+::: {.fragment .fade-in}
+ Then add a bit of yaml metadata and it should be a very rough Rmarkdown article.
 :::
+
+## {}
+
+### Workflow of the conversion
+
+
+::: {.fragment .fade-in}
+
+![](resources/workflow.png){width="50%"}
+
 :::
 
 ## {}
@@ -188,7 +239,6 @@ end
 
 ## {}
 
-::: columns
 
 ::: {.column width="70%" .fragment .fade-in}
 
@@ -204,7 +254,6 @@ end
 
 ::: {.column width="30%"}
 ![](resources/mediumseagreen_image.png){.image-right}
-:::
 :::
 
 ## {}
@@ -268,22 +317,23 @@ journal_dirs <- list.dirs(article_dir,recursive = FALSE)
 year <- list()
 previous_year <- 2008
 for (dir in journal_dirs) {
-     if (is.na(file.size(paste(dir,"/",basename(dir),".html",sep="")))) {
+     if (is.na(file.size(paste(dir,"/",basename(dir),".Rmd",sep="")))) {
        # Do Nothing
      }
      else{
-       year[length(year) + 1] <- unlist(stringr::str_split(basename(dir),pattern = '-'))[2]
+      yaml_metadata <- rmarkdown::yaml_front_matter(paste(dir,"/",basename(dir),".Rmd",sep=""))
+       year[length(year) + 1] <- 2008 + yaml_metadata$volume
      }
 }
 library(dplyr)
-year <- unlist(year)
+year <- sort(unlist(year))
 year_wise_data <- data.frame(rle(year)$values,rle(year)$lengths)
 filtered_data = year_wise_data |>
   filter(rle.year..values < 2022)
 plot(filtered_data, type = 'o' ,fill = TRUE, xlab = "Year", ylab = "No. of articles converted")
 ```
 
-![](resources/Rplot.png)
+![](resources/plot.png)
 :::
 :::
 
@@ -382,7 +432,7 @@ plot(filtered_data, type = 'o' ,fill = TRUE, xlab = "Year", ylab = "No. of artic
 ![](resources/peru_image.png){.image-left}
 :::
 ::: {.column width="70%" .fragment .fade-in}
-### Expected Impact of this migration
+### Expected impact of this migration
 
 - Accessibility improvements
 
@@ -426,16 +476,20 @@ More features to come like support for algorithms using `pseudocodejs` and auto-
 
 ::: columns
 
-::: {.column width="30%"}
-![](resources/navy_image.png){.image-left}
-:::
 
-::: {.column width="70%" .fragment .fade-in}
+
+::: {.column width="100%" .fragment .fade-in}
+
 ### Best practices for better accessibility and easier conversions
 
 1. Include meaningful alt-text for the images included.
 2. Following the R Journal guidelines while writing LaTeX articles.
 3. Use simpler LaTeX constructs instead of long complicated LaTeX markups.
+Like try to use `\section{Introduction}` , instead of
+
+`{ \normalfont\fontsize{12}{15}\bfseries Introduction }`
+
+
 
 [4. **Try to adopt Rmarkdown.**]{.fragment .fade-in}
 :::
