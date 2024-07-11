@@ -133,6 +133,8 @@ Your favorite R Journal articles, Now in RMarkdown (web format)
 
 - [`pdftools`](https://cran.r-project.org/package=pdftools) : Converting PDF fragments to PNG
 
+- [`MathJax`](https://www.mathjax.org/) : renders the equations in HTML
+
 - [`rjtools`](https://cran.r-project.org/package=rjtools) : The R Journal article output format 
 
 :::
