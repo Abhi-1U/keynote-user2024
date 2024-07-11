@@ -1,7 +1,7 @@
 ---
 from: markdown+emoji
 execute:
-  cache: true
+  cache: false
 format:
   letterbox-revealjs:
     theme: [default]
@@ -217,7 +217,7 @@ Convert_To_Markdown<- function(input_file){
 
 ::: {.fragment .fade-in .column width="50%"}
 
-#### Conversion Workdlow
+#### Conversion stages
 
 ```
 LaTeX  --- > simplified LaTeX
